@@ -1,0 +1,17 @@
+{
+  "name": "vrmtoai",
+  "version": "1.0.0",
+  "description": "converts a vrm file to an ai metadata asset",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPL-2.0-only",
+  "dependencies": {
+    "@gltf-transform/cli": "^2.5.1",
+    "@gltf-transform/core": "^2.5.1",
+    "@gltf-transform/extensions": "^2.5.1",
+    "@gltf-transform/functions": "^2.5.1"
+  }
+}
