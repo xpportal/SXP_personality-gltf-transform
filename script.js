@@ -20,11 +20,13 @@ class Personality extends Extension {
 		let agent;
 		let spellName;
 		let host;
+		let personality;
 		let defaultMessage;
 		this.properties.forEach(value => {
 			agent = value.agent;
 			spellName = value.spellName;
 			host = value.host;
+			personality = value.personality;
 			defaultMessage = value.defaultMessage;
 	
 			console.log(value.agent);
@@ -40,6 +42,7 @@ class Personality extends Extension {
 					agent: agent,
 					spellName : spellName,
 					host : host,
+					personality : personality,
 					defaultMessage : defaultMessage,
 				}; 
             } 
@@ -88,11 +91,12 @@ async function main() {
 	document.merge(await io.read(inputFile));
 	const node = document.createNode(process.argv[3])
 	const emitterExtension = document.createExtension(Personality);
-	const emitter = emitterExtension.createPersonality('tubby', process.argv[3], process.argv[4], process.argv[5], process.argv[6]);
+	const emitter = emitterExtension.createPersonality(process.argv[3], process.argv[3], process.argv[4], process.argv[5], process.argv[6], process.argv[7]);
 	emitter.agent = process.argv[3];
 	emitter.spellName = process.argv[4];
 	emitter.host = process.argv[5];
-	emitter.defaultMessage = process.argv[6];
+	emitter.host = process.argv[6];
+	emitter.defaultMessage = process.argv[7];
 	node.setExtension('SXP_personality', emitter);
 
 	// (Optional) Merge buffers.
