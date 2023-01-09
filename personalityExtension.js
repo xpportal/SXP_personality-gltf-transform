@@ -2,8 +2,8 @@
 const { Document, Extension, ExtensionProperty, PropertyType, WriterContext } = require('@gltf-transform/core');
 
 class Personality extends Extension {
-    extensionName = 'EXT_personality';
-    static EXTENSION_NAME = 'EXT_personality';
+    extensionName = 'SXP_personality';
+    static EXTENSION_NAME = 'SXP_personality';
     /** Creates a new Emitter property, for use on a Node. */
     createPersonality(name = '') {
         return new PersonalityProps(this.document.getGraph(), name);
@@ -11,7 +11,7 @@ class Personality extends Extension {
 
     /** See https://github.com/donmccurdy/glTF-Transform/blob/main/packages/core/src/io/reader-context.ts */
     read(context) {
-        throw new Error('EXT_personality: read() not implemented');
+        throw new Error('SXP_personality: read() not implemented');
     }
 
     /** See https://github.com/donmccurdy/glTF-Transform/blob/main/packages/core/src/io/writer-context.ts */
@@ -22,10 +22,10 @@ class Personality extends Extension {
 }
 
 class PersonalityProps extends ExtensionProperty {
-    static EXTENSION_NAME = 'EXT_personality';
+    static EXTENSION_NAME = 'SXP_personality';
 
     init() {
-        this.extensionName = 'EXT_personality';
+        this.extensionName = 'SXP_personality';
         this.propertyType = 'Personality';
         this.parentTypes = [PropertyType.NODE];
     }

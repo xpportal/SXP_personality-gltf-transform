@@ -11,7 +11,7 @@ Usage:
 
 # Extension Name
 
-EXT_personality
+SXP_personality
 
 # Extension Type
 
@@ -30,7 +30,7 @@ The following JSON schema defines the extension properties:
 ```json
 {
   "definitions": {
-    "EXT_personality": {
+    "SXP_personality": {
       "type": "object",
       "properties": {
         "agent": { "type": "string" },
@@ -45,7 +45,7 @@ The following JSON schema defines the extension properties:
     "extensions": {
       "type": "object",
       "properties": {
-        "EXT_personality": { "$ref": "#/definitions/EXT_personality" }
+        "SXP_personality": { "$ref": "#/definitions/SXP_personality" }
       }
     }
   }
@@ -60,7 +60,7 @@ Here is an example of how the extension can be used in a glTF file:
     {
       "name": "TubbyPet",
       "extensions": {
-        "EXT_personality": {
+        "SXP_personality": {
           "agent": "tubby",
           "spellName": "complexQuery",
           "host": "https://localhost:8001",
@@ -69,6 +69,6 @@ Here is an example of how the extension can be used in a glTF file:
       }
     }
   ],
-  "extensionsUsed": [ "EXT_personality" ]
+  "extensionsUsed": [ "SXP_personality" ]
 }
 ```

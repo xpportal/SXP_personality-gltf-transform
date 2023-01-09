@@ -3,8 +3,8 @@ const { KHRONOS_EXTENSIONS } = require('@gltf-transform/extensions');
 const { Extension, ExtensionProperty, PropertyType, WriterContext } = require('@gltf-transform/core');
 
 class Personality extends Extension {
-    extensionName = 'EXT_personality';
-    static EXTENSION_NAME = 'EXT_personality';
+    extensionName = 'SXP_personality';
+    static EXTENSION_NAME = 'SXP_personality';
     /** Creates a new Emitter property, for use on a Node. */
     createPersonality(name = 'myNode') {
         return new PersonalityProps(this.document.getGraph());
@@ -12,7 +12,7 @@ class Personality extends Extension {
 
     /** See https://github.com/donmccurdy/glTF-Transform/blob/main/packages/core/src/io/reader-context.ts */
     read(context) {
-        throw new Error('EXT_personality: read() not implemented');
+        throw new Error('SXP_personality: read() not implemented');
     }
 
     /** See https://github.com/donmccurdy/glTF-Transform/blob/main/packages/core/src/io/writer-context.ts */
@@ -33,10 +33,10 @@ class Personality extends Extension {
 			// console.log("set", value);
 		});
 		for (const node of this.document.getRoot().listNodes()) { 
-            if (node.getExtension("EXT_personality")) { 
+            if (node.getExtension("SXP_personality")) { 
                 const nodeDef = context.jsonDoc.json.nodes[context.nodeIndexMap.get(node)]; 
                 nodeDef.extensions = nodeDef.extensions || {};
-                nodeDef.extensions["EXT_personality"] = { 
+                nodeDef.extensions["SXP_personality"] = { 
 					agent: agent,
 					spellName : spellName,
 					host : host,
@@ -49,11 +49,11 @@ class Personality extends Extension {
 }
 
 class PersonalityProps extends ExtensionProperty {
-    static EXTENSION_NAME = 'EXT_personality';
+    static EXTENSION_NAME = 'SXP_personality';
     static PROPERTY = 'someprop';
 
     init() {
-        this.extensionName = 'EXT_personality';
+        this.extensionName = 'SXP_personality';
         this.propertyType = 'PersonalityProps';
         this.parentTypes = [PropertyType.NODE];
 		this.agent = "tubby";
@@ -93,7 +93,7 @@ async function main() {
 	emitter.spellName = process.argv[4];
 	emitter.host = process.argv[5];
 	emitter.defaultMessage = process.argv[6];
-	node.setExtension('EXT_personality', emitter);
+	node.setExtension('SXP_personality', emitter);
 
 	// (Optional) Merge buffers.
 	const buffer = document.getRoot().listBuffers()[0];
