@@ -1,5 +1,4 @@
-# Personality Extension with gltf-transform to use it
-
+# SXP_personality Extension with gltf-transform to use it
 
 # Description
 
