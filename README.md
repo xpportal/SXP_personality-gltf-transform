@@ -6,7 +6,7 @@ This extension allows users to assign personality attributes to a glTF node appe
 
 Usage: 
 1) `npm install`
-2) `node script.js someobject.glb tubby complexQuery https://localhost:8001 'nya nya!'`
+2) `node script.js someobject.glb tubby '#agent is cheery and says nya nya a lot' https://localhost:8001 'nya nya!'`
 
 # Extension Name
 
@@ -19,9 +19,8 @@ Node extension
 # Properties
 
 - `agent` (string) - The name of the agent assigned to the node.
-- `spellName` (string) - The name of the spell assigned to the node.
-- `host` (string) - The host URL for the node.
 - `personality` (string) - Typically a long prompt describing the character and their backstory.
+- `host` (string) - The host URL for the node.
 - `defaultMessage` (string) - The default message for the node.
 
 # JSON Schema
@@ -63,9 +62,8 @@ Here is an example of how the extension can be used in a glTF file:
       "extensions": {
         "SXP_personality": {
           "agent": "tubby",
-          "spellName": "complexQuery",
-          "host": "https://localhost:8001",
           "personality": "#agent is cheery.",
+          "host": "https://localhost:8001",
           "defaultMessage": "nya nya!"
         }
       }

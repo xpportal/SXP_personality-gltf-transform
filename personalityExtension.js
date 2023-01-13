@@ -35,8 +35,8 @@ class PersonalityProps extends ExtensionProperty {
 
         return Object.assign(super.getDefaults(), {
 			agent: "tubby",
-			spellName: "complexQuery",
-			host: "https://localhost:8001",
+			personality: "tubby",
+			host: "https://localhost:8001/somespell",
 			defaultMessage: "nya nya!",
 		});
     }
