@@ -2,11 +2,11 @@
 
 # Description
 
-This extension allows users to assign personality attributes to a glTF node appended to a file. The attributes include `agent`, `spellName`, `host`, `personality` and `defaultMessage`. Currently this extension is only compatible with MagickML but will be adjusted to be interoperable with others as more options are available.
+This extension allows users to assign personality attributes to a glTF node appended to a file. The attributes include `agent`, `spellName`, `endpoint`, `personality` and `defaultMessage`. Currently this extension is only compatible with MagickML but will be adjusted to be interoperable with others as more options are available.
 
 Usage: 
 1) `npm install`
-2) `node script.js someobject.glb tubby '#agent is cheery and says nya nya a lot' https://localhost:8001 'nya nya!'`
+2) `node script.js someobject.glb tubby '#agent is cheery and says nya nya a lot' https://localendpoint:8001 'nya nya!'`
 
 # Extension Name
 
@@ -20,7 +20,7 @@ Node extension
 
 - `agent` (string) - The name of the agent assigned to the node.
 - `personality` (string) - Typically a long prompt describing the character and their backstory.
-- `host` (string) - The host URL for the node.
+- `endpoint` (string) - The endpoint URL for the node.
 - `defaultMessage` (string) - The default message for the node.
 
 # JSON Schema
@@ -33,9 +33,8 @@ The following JSON schema defines the extension properties:
       "type": "object",
       "properties": {
         "agent": { "type": "string" },
-        "spellName": { "type": "string" },
-        "host": { "type": "string" },
         "personality": { "type": "string" },
+        "endpoint": { "type": "string" },
         "defaultMessage": { "type": "string" }
       }
     }
@@ -63,7 +62,7 @@ Here is an example of how the extension can be used in a glTF file:
         "SXP_personality": {
           "agent": "tubby",
           "personality": "#agent is cheery.",
-          "host": "https://localhost:8001",
+          "endpoint": "https://localendpoint:8001",
           "defaultMessage": "nya nya!"
         }
       }

@@ -18,15 +18,13 @@ class Personality extends Extension {
     /** See https://github.com/donmccurdy/glTF-Transform/blob/main/packages/core/src/io/writer-context.ts */
     write(context) {
 		let agent;
-		let spellName;
-		let host;
 		let personality;
+		let host;
 		let defaultMessage;
 		this.properties.forEach(value => {
 			agent = value.agent;
-			spellName = value.spellName;
-			host = value.host;
 			personality = value.personality;
+			host = value.endpoint;
 			defaultMessage = value.defaultMessage;
 	
 			console.log(value.agent);
@@ -40,9 +38,8 @@ class Personality extends Extension {
                 nodeDef.extensions = nodeDef.extensions || {};
                 nodeDef.extensions["SXP_personality"] = { 
 					agent: agent,
-					spellName : spellName,
-					host : host,
 					personality : personality,
+					host : host,
 					defaultMessage : defaultMessage,
 				}; 
             } 
@@ -60,8 +57,8 @@ class PersonalityProps extends ExtensionProperty {
         this.propertyType = 'PersonalityProps';
         this.parentTypes = [PropertyType.NODE];
 		this.agent = "tubby";
-		this.spellName = "complexQuery";
-		this.host = "https://localhost:8001";
+		this.personality = "#agent is cheery";
+		this.endpoint = "https://localhost:8001";
 		this.defaultMessage = "nya nya!";
     }
 
@@ -70,7 +67,7 @@ class PersonalityProps extends ExtensionProperty {
 
         return Object.assign(super.getDefaults(), {
 			agent: "tubby",
-			spellName: "complexQuery",
+			personality: "#agent is cheery",
 			host: "https://localhost:8001",
 			defaultMessage: "nya nya!",
 		});
@@ -93,10 +90,9 @@ async function main() {
 	const emitterExtension = document.createExtension(Personality);
 	const emitter = emitterExtension.createPersonality(process.argv[3], process.argv[3], process.argv[4], process.argv[5], process.argv[6], process.argv[7]);
 	emitter.agent = process.argv[3];
-	emitter.spellName = process.argv[4];
-	emitter.host = process.argv[5];
-	emitter.host = process.argv[6];
-	emitter.defaultMessage = process.argv[7];
+	emitter.personality = process.argv[4];
+	emitter.endpoint = process.argv[5];
+	emitter.defaultMessage = process.argv[6];
 	node.setExtension('SXP_personality', emitter);
 
 	// (Optional) Merge buffers.

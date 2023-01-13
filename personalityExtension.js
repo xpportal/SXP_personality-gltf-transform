@@ -35,7 +35,7 @@ class PersonalityProps extends ExtensionProperty {
 
         return Object.assign(super.getDefaults(), {
 			agent: "tubby",
-			personality: "tubby",
+			personality: "#agent is cheery",
 			host: "https://localhost:8001/somespell",
 			defaultMessage: "nya nya!",
 		});
