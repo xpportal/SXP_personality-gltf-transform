@@ -3,45 +3,38 @@ const { KHRONOS_EXTENSIONS } = require('@gltf-transform/extensions');
 const { Extension, ExtensionProperty, PropertyType, WriterContext } = require('@gltf-transform/core');
 
 class Personality extends Extension {
-    extensionName = 'SXP_personality';
-    static EXTENSION_NAME = 'SXP_personality';
-    /** Creates a new Emitter property, for use on a Node. */
+    extensionName = 'OMI_personality';
+    static EXTENSION_NAME = 'OMI_personality';
+
     createPersonality(name = 'myNode') {
         return new PersonalityProps(this.document.getGraph());
     }
 
-    /** See https://github.com/donmccurdy/glTF-Transform/blob/main/packages/core/src/io/reader-context.ts */
     read(context) {
-        throw new Error('SXP_personality: read() not implemented');
+        throw new Error('OMI_personality: read() not implemented');
     }
 
-    /** See https://github.com/donmccurdy/glTF-Transform/blob/main/packages/core/src/io/writer-context.ts */
     write(context) {
-		let agent;
-		let personality;
-		let host;
-		let defaultMessage;
-		this.properties.forEach(value => {
-			agent = value.agent;
-			personality = value.personality;
-			host = value.endpoint;
-			defaultMessage = value.defaultMessage;
-	
-			console.log(value.agent);
-			console.log(value['agent']);
+        let agent;
+        let personality;
+        let defaultMessage;
+        this.properties.forEach(value => {
+            agent = value.agent;
+            personality = value.personality;
+            defaultMessage = value.defaultMessage;
 
-			// console.log("set", value);
-		});
-		for (const node of this.document.getRoot().listNodes()) { 
-            if (node.getExtension("SXP_personality")) { 
+            console.log(value.agent);
+            console.log(value['agent']);
+        });
+        for (const node of this.document.getRoot().listNodes()) { 
+            if (node.getExtension("OMI_personality")) { 
                 const nodeDef = context.jsonDoc.json.nodes[context.nodeIndexMap.get(node)]; 
                 nodeDef.extensions = nodeDef.extensions || {};
-                nodeDef.extensions["SXP_personality"] = { 
-					agent: agent,
-					personality : personality,
-					host : host,
-					defaultMessage : defaultMessage,
-				}; 
+                nodeDef.extensions["OMI_personality"] = { 
+                    agent: agent,
+                    personality : personality,
+                    defaultMessage : defaultMessage,
+                }; 
             } 
         } 
         return this; 
@@ -49,65 +42,53 @@ class Personality extends Extension {
 }
 
 class PersonalityProps extends ExtensionProperty {
-    static EXTENSION_NAME = 'SXP_personality';
+    static EXTENSION_NAME = 'OMI_personality';
     static PROPERTY = 'someprop';
 
     init() {
-        this.extensionName = 'SXP_personality';
+        this.extensionName = 'OMI_personality';
         this.propertyType = 'PersonalityProps';
         this.parentTypes = [PropertyType.NODE];
-		this.agent = "tubby";
-		this.personality = "#agent is cheery";
-		this.endpoint = "https://localhost:8001";
-		this.defaultMessage = "nya nya!";
+        this.agent = "tubby";
+        this.personality = "#agent is cheery";
+        this.defaultMessage = "nya nya!";
     }
 
     getDefaults() {
-		console.log("Personality come on!!");
-
         return Object.assign(super.getDefaults(), {
-			agent: "tubby",
-			personality: "#agent is cheery",
-			host: "https://localhost:8001",
-			defaultMessage: "nya nya!",
-		});
+            agent: "tubby",
+            personality: "#agent is cheery",
+            defaultMessage: "nya nya!",
+        });
     }
 }
 
 async function main() {
-		console.log(Personality);
-	// Register extensions.
-	const io = new NodeIO()
-		.registerExtensions([...KHRONOS_EXTENSIONS, Personality]);
+    const io = new NodeIO()
+        .registerExtensions([...KHRONOS_EXTENSIONS, Personality]);
 
-	// Get the input file path from the command line argument.
-	const inputFile = process.argv[2];
+    const inputFile = process.argv[2];
 
-	// Merge documents.
-	const document = new Document();
-	document.merge(await io.read(inputFile));
-	const node = document.createNode(process.argv[3])
-	const emitterExtension = document.createExtension(Personality);
-	const emitter = emitterExtension.createPersonality(process.argv[3], process.argv[3], process.argv[4], process.argv[5], process.argv[6], process.argv[7]);
-	emitter.agent = process.argv[3];
-	emitter.personality = process.argv[4];
-	emitter.endpoint = process.argv[5];
-	emitter.defaultMessage = process.argv[6];
-	node.setExtension('SXP_personality', emitter);
+    const document = new Document();
+    document.merge(await io.read(inputFile));
+    const node = document.createNode(process.argv[3])
+    const emitterExtension = document.createExtension(Personality);
+    const emitter = emitterExtension.createPersonality(process.argv[3], process.argv[4], process.argv[5]);
+    emitter.agent = process.argv[3];
+    emitter.personality = process.argv[4];
+    emitter.defaultMessage = process.argv[5];
+    node.setExtension('OMI_personality', emitter);
 
-	// (Optional) Merge buffers.
-	const buffer = document.getRoot().listBuffers()[0];
-	document.getRoot()
-		.listAccessors()
-		.forEach((a) => a.setBuffer(buffer));
-	document.getRoot()
-		.listBuffers()
-		.forEach((b, index) => (index > 0 ? b.dispose() : null));
+    const buffer = document.getRoot().listBuffers()[0];
+    document.getRoot()
+        .listAccessors()
+        .forEach((a) => a.setBuffer(buffer));
+    document.getRoot()
+        .listBuffers()
+        .forEach((b, index) => (index > 0 ? b.dispose() : null));
 
-	// Write the output file to the current directory.
-	const outputFile = 'output.glb';
-	await io.write(outputFile, document);
+    const outputFile = 'output.glb';
+    await io.write(outputFile, document);
 }
 
 main();
-
